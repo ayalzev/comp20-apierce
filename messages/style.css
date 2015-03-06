@@ -1,1 +1,25 @@
-/* Your CSS here... */
+/* Ayal Pierce 
+ *    Thank you to Ming Chow for the backbone of 
+ *    this style theme
+*/
+
+
+
+body{
+	font-family: "Lucida Grande", sans-serif;
+}
+
+p {
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-khtml-border-radius: 15px;
+	border-radius: 15px;
+	background-color: #3083ff;
+	padding: 5px;
+	margin-right: 10px;
+	margin-top: 5px;
+	text-indent: 10px;
+	color:white;
+}
+
+
