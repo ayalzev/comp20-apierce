@@ -10,7 +10,7 @@ function parse(){
 
 	request.onreadystatechange = parseData;	
 
-	request.open("GET", "data.json", true);
+	request.open("GET", "http://messagehub.herokuapp.com/messages.json", true);
 
 	request.send();
 	
