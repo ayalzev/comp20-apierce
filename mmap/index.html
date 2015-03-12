@@ -62,7 +62,15 @@
 					title: "Here I Am!"
 				});
 				marker.setMap(map);
-				sendData();
+
+				google.maps.event.addListener(marker, 'click', function(){
+					infowindow.setContent(my_login);
+					infowindow.open(map, marker);
+				});
+
+
+
+				sendData(); //sends data to datastore and gets JSON in return
 
 			}
 			function sendData(){
@@ -70,14 +78,25 @@
 				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				request.onreadystatechange = function(){ 
     				if(request.readyState == 4 && request.status == 200) {
-        				console.log(request.responseText);
+						converted = JSON.parse(request.responseText);
+						for (i = 0; i < converted.length; i++){
+								login_id = converted[i]['login'];
+								theirLat = converted[i]['lat'];
+								theirLng = converted[i]['lng'];
+						}
+
     				}
 				}
 				params = "login=" + my_login + "&lat=" + myLat + "&lng=" + myLng;
 				console.log("Params are: " + params);
 				request.send(params);
 			}
-		
+
+			function createMarker(){
+
+			}		
+
+
 		</script>
 	</head>
 	
