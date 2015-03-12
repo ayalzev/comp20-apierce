@@ -15,7 +15,7 @@
 			var request = new XMLHttpRequest();
 			var me = new google.maps.LatLng(myLat, myLng);
 			var myOptions = {
-						zoom: 13, // The larger the zoom number, the bigger the zoom
+						zoom: 15, // The larger the zoom number, the bigger the zoom
 						center: me,
 						mapTypeId: google.maps.MapTypeId.ROADMAP
 					};
@@ -23,6 +23,7 @@
 			var marker;
 			var infowindow = new google.maps.InfoWindow();
 			var places;
+			var image = 'doctor.JPG'
 			var url = "https://secret-about-box.herokuapp.com/sendLocation";
 			var my_login = "KyleContreras";			
 
@@ -55,7 +56,8 @@
 				// Create a marker
 				marker = new google.maps.Marker({
 					position: me,
-					title: "Here I Am!"
+					title: my_login,
+					icon: image
 				});
 				marker.setMap(map);
 
@@ -97,7 +99,7 @@
 				google.maps.event.addListener(mark, 'click', function() {
 					infowindow.close();
 					distance = haversine(myLat,myLng,the_lat,the_lng);
-					infowindow.setContent(the_login + " " + distance);
+					infowindow.setContent(the_login + ": " + distance);
 					infowindow.open(map, this);
 				});
 
