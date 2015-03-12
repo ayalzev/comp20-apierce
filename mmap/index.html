@@ -83,16 +83,26 @@
 								login_id = converted[i]['login'];
 								theirLat = converted[i]['lat'];
 								theirLng = converted[i]['lng'];
+								createMarker(login_id,theirLat,theirLng);
 						}
 
     				}
 				}
 				params = "login=" + my_login + "&lat=" + myLat + "&lng=" + myLng;
-				console.log("Params are: " + params);
 				request.send(params);
 			}
 
-			function createMarker(){
+			function createMarker(the_login, the_lat, the_lng){
+				var mark = new google.maps.Marker({
+					map:map,
+					position: new google.maps.LatLng(the_lat, the_lng)
+				});
+
+				google.maps.event.addListener(mark, 'click', function() {
+					infowindow.close();
+					infowindow.setContent(the_login);
+					infowindow.open(map, this);
+				});
 
 			}		
 
