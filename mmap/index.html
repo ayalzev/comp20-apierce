@@ -23,7 +23,9 @@
 			var marker;
 			var infowindow = new google.maps.InfoWindow();
 			var places;
-			
+			var url = "https://secret-about-box.herokuapp.com/sendLocation";
+			var my_login = "KyleContreras";			
+
 			function init()
 			{
 				map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
@@ -60,49 +62,22 @@
 					title: "Here I Am!"
 				});
 				marker.setMap(map);
-					
-				// Open info window on click of marker
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.setContent(marker.title);
-					infowindow.open(map, marker);
-				});
-				
-				// Calling Google Places API
-				var request = {
-					location: me,
-					radius: '500',
-					types: ['food']
-				};
-				service = new google.maps.places.PlacesService(map);
-				service.search(request, callback);
-			}
-			
-			// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
-			function callback(results, status)
-			{
-				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					alert("Got places back!");
-					places = results;
-					for (var i = 0; i < results.length; i++) {
-						createMarker(results[i]);
-					}
-				}
-			}
-			
-			function createMarker(place)
-			{
-				var placeLoc = place.geometry.location;
-				var marker = new google.maps.Marker({
-					map: map,
-					position: place.geometry.location
-				});
+				sendData();
 
-				google.maps.event.addListener(marker, 'click', function() {
-					infowindow.close();
-					infowindow.setContent(place.name);
-					infowindow.open(map, this);
-				});
-      }
+			}
+			function sendData(){
+				request.open("POST", url, true);
+				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				request.onreadystatechange = function(){ 
+    				if(request.readyState == 4 && request.status == 200) {
+        				console.log(request.responseText);
+    				}
+				}
+				params = "login=" + my_login + "&lat=" + myLat + "&lng=" + myLng;
+				console.log("Params are: " + params);
+				request.send(params);
+			}
+		
 		</script>
 	</head>
 	
