@@ -7,19 +7,31 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			
+
+			entryId = 0; //entry counter
+
+			//Reload the log from Local Storage
+			for (key in localStorage){
+				$("#log").prepend(localStorage[key]);
+				entryId++;
+			}	
 
 			$("#msg").change(function(){
 
+				//Prepend new log entry
 				var now = new Date();
 				var stamp = now.toDateString() + " " + now.toTimeString();
 				var toLog = "<p>" + stamp + " - " + $("#msg").val() + "</p>";
 				$("#log").prepend(toLog);
-				$("#msg").val(""); //clears the text box
+
+				//Add the new entry to Local Storage
+				localStorage.setItem(entryId, toLog);
+				entryId++;
+				
+				//Clear the text box
+				$("#msg").val("");
+
 			});
-
-
-
 		});  
 	</script>
 </head>
