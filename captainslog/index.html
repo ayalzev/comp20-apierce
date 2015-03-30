@@ -10,7 +10,12 @@
 			
 
 			$("#msg").change(function(){
-				$("#log").prepend("<p>" + $("#msg").val() + "</p>");
+
+				var now = new Date();
+				var stamp = now.toDateString() + " " + now.toTimeString();
+				var toLog = "<p>" + stamp + " - " + $("#msg").val() + "</p>";
+				$("#log").prepend(toLog);
+				$("#msg").val(""); //clears the text box
 			});
 
 
